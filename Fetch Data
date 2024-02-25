@@ -1,0 +1,20 @@
+from tkinter import *;
+from tkinter import ttk
+
+import requests
+
+def city_name_get():
+    city_name_get_data = selected_city.get()
+    json_data = requests.get("https://api.openweathermap.org/data/2.5/weather?q="+city_name_get_data+"")
+    data = f"""Weather Climate : {json_data["weather"][0]["main"]}
+    
+Weather_Description : {json_data["weather"][0]['description']}
+Temp : {str(int(json_data["main"]["temp"]-273.15))}
+Temp_Min : {str(int(json_data["main"]["temp_min"]-273.15))}
+Temp_Max : {str(int(json_data["main"]["temp_max"]-273.15))}
+Pressure : {str(int(json_data["main"]["pressure"]))}"""
+
+label_data.config(text=data)
+
+
+win=Tk()
